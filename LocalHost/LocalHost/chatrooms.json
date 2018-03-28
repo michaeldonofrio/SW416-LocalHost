@@ -1,0 +1,16 @@
+﻿[
+  {
+    "id": "00023",
+    "name": "Test Chatroom 1",
+    "location": [ "TC1_longitude", "TC1_latitude" ],
+    "participants": [ "UserID_1", "UserID_2", "UserID_3" ],
+    "admin": "UserID_1"
+  },
+  {
+    "id": "00246",
+    "name": "Test Chatroom 2",
+    "location": [ "TC2_longitude", "TC2_latitude" ],
+    "participants": [ "UserID_4", "UserID_5", "UserID_6" ],
+    "admin": "UserID_5"
+  }
+]
