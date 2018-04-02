@@ -10,6 +10,8 @@ namespace LocalHost
     {
         public App()
         {
+           
+            InitializeComponent();
             MainPage = new MainPage();
 
         }

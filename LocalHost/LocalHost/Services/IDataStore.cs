@@ -7,10 +7,12 @@ namespace LocalHost
     public interface IDataStore
     {
         Task Init();
-        Task<User> GetUser();
-        Task<User> UpdateStore(User user);
-        Task<Chatroom> AddChatroom(Chatroom chatroom);
-        Task<Chatroom> GetChatrooms();
-        Task<bool> RemoveChatroom(Chatroom feedback);
+        User GetUser();
+        bool UpdateUser(User user);
+        ChatroomList GetChatrooms();
+        bool AddChatroom(Chatroom chatroom);
+        bool RemoveChatroom(Chatroom chatroom);
+     
+      
     }
 }

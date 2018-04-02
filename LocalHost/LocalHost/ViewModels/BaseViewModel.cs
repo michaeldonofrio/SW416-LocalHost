@@ -7,7 +7,7 @@ namespace LocalHost
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => ServiceLocator.Instance.Get<IDataStore<Item>>() ?? new MockDataStore();
+        public IDataStore DataStore => ServiceLocator.Instance.GetIDataStore() ?? new MockDataStore();
 
         bool isBusy = false;
         public bool IsBusy

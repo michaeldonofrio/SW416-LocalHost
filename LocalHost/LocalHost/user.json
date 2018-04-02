@@ -1,7 +1,8 @@
 ﻿{
-      "id": "UserID_1",
-      "username": "michaeldonofrio223"
-      "firstname": "Michael"","
-      "lastname": "Donofrio",
-      "location": ["MD_longitude", "MD_latitude"],
+      "ID": "UserID_1",
+      "Username": "michaeldonofrio223",
+      "FirstName": "Michael",
+      "LastName": "Donofrio",
+      "Location": ["MD_longitude", "MD_latitude"],
+      "ChatroomIDs": [ "ChatID_1", "ChatID_2" ]
 }
