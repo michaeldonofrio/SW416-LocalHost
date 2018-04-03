@@ -26,8 +26,6 @@ namespace LocalHost
             foreach (Chatroom c in tempList)
             {
                 ChatList.Add(c);
-                Debug.WriteLine(c.Name);
-                Debug.WriteLine(c.AdminID);
             }
 
             return ChatList;
