@@ -3,23 +3,24 @@
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="LocalHost.Views.AccountPage"
-    > 
+    >
     <ContentPage.Content>
-        <TableView Intent="Form">
-            <TableRoot>
-                <TableSection Title="Account">
-                    <EntryCell Label="Username"
-                               Text="{Binding Username}"/>
-                    <EntryCell Label="Name"
-                               Text="{Binding Name}"/>
-                    <EntryCell IsEnabled="false"
-                               Label="ID"
-                               Placeholder="{Binding ID}"/>
-                    <EntryCell IsEnabled="false"
-                               Label="Location"
-                               Placeholder="{Binding Location}"/>
-                </TableSection>
-            </TableRoot>   
-        </TableView>
+        <StackLayout>
+        <Label
+            Text="{Binding Username}"
+            />
+        <Label
+            Text="{Binding Id}"
+            />
+        <Label
+            Text="{Binding FirstName}"
+            />
+        <Label
+            Text="{Binding LastName}"
+            />
+        <Label
+            Text="{Binding Location}"
+            />
+       </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -42,10 +42,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ChatroomPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,10 +64,6 @@
       <DependentUpon>ChatroomListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ChatroomListViewModel.cs" />
-    <Compile Include="Models\Message.cs" />
-    <Compile Include="Views\ChatroomPage.xaml.cs">
-      <DependentUpon>ChatroomPage.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
