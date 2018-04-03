@@ -5,7 +5,7 @@ using LocalHost.ViewModels;
 using Xamarin.Forms;
 
 namespace LocalHost.Views
-{
+{  
     public partial class AccountPage : ContentPage
     {
         AccountViewModel viewModel;

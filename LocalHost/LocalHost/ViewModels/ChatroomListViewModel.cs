@@ -9,7 +9,6 @@ namespace LocalHost.ViewModels
     {
         public ChatroomList list { get; set; }
 
-
         public ChatroomListViewModel(ChatroomList list, Page page) : base(page)
         {
             this.list = list;
@@ -22,5 +21,6 @@ namespace LocalHost.ViewModels
             ChatroomList list = fakeData.GetChatrooms();
             this.list = list;
         }
+
     }
 }
