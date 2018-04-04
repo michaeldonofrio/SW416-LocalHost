@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage Title="Account" 
+<ContentPage Title="Settings" 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="LocalHost.Views.AccountPage"
@@ -22,6 +22,9 @@
                     <EntryCell IsEnabled="false"
                                Label="Location"
                                Placeholder="{Binding Location}"/>
+                </TableSection>
+                <TableSection Title="Privacy">
+                    <SwitchCell Text = "Share Public Profile" On ="true"/>
                 </TableSection>
             </TableRoot>   
         </TableView>
