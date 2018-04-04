@@ -46,6 +46,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\CreateChatroomPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,7 +58,6 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="ViewModels\ChatroomViewModel.cs" />
     <Compile Include="Services\IDataStore.cs" />
-    <Compile Include="Services\MockDataStore.cs" />
     <Compile Include="Views\AccountPage.xaml.cs">
       <DependentUpon>AccountPage.xaml</DependentUpon>
     </Compile>
@@ -71,6 +74,10 @@
     <Compile Include="Models\Message.cs" />
     <Compile Include="Views\ChatroomPage.xaml.cs">
       <DependentUpon>ChatroomPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\AsyncMockDataStore.cs" />
+    <Compile Include="Views\CreateChatroomPage.xaml.cs">
+      <DependentUpon>CreateChatroomPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -101,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Services\MockDataStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />

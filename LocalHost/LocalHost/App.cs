@@ -8,6 +8,7 @@ namespace LocalHost
 {
     public partial class App : Application
     {
+        public static AsyncMockDataStore dataStore = AsyncMockDataStore.CreateAsync().Result;
 
         public App()
         {

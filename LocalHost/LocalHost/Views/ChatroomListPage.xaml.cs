@@ -28,5 +28,15 @@ namespace LocalHost.Views
                 Navigation.PushAsync(new ChatroomPage(e.Item as Chatroom));
             };
         }
+
+        public void deleteChatroom(object sender, EventArgs e){
+            var mi = ((MenuItem)sender);
+            viewModel.deleteChatroom(mi.CommandParameter as Chatroom);
+            ChatroomsListView.ItemsSource = viewModel.list;
+        }
+
+        public void openCreateChatroomPage(object sender, EventArgs e){
+            Navigation.PushAsync(new CreateChatroomPage());
+        }
     }
 }

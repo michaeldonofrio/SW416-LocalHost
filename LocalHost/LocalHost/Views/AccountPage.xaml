@@ -7,11 +7,15 @@
     <ContentPage.Content>
         <TableView Intent="Form">
             <TableRoot>
-                <TableSection Title="Account">
+                <TableSection Title="Profile">
                     <EntryCell Label="Username"
-                               Text="{Binding Username}"/>
+                               x:Name="UsernameCell"
+                               Text="{Binding Username}"
+                               Completed="updateUser"/>
                     <EntryCell Label="Name"
-                               Text="{Binding Name}"/>
+                               x:Name="NameCell"
+                               Text="{Binding Name}"
+                               Completed="updateUser"/>
                     <EntryCell IsEnabled="false"
                                Label="ID"
                                Placeholder="{Binding ID}"/>

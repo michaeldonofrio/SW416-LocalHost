@@ -12,7 +12,7 @@ namespace LocalHost
 {
     public class MockDataStore : IDataStore
     {
-        public Task<Chatroom> AddChatroom(Chatroom chatroom)
+        public Chatroom AddChatroom(Chatroom chatroom)
         {
             throw new NotImplementedException();
         }
@@ -43,16 +43,6 @@ namespace LocalHost
         }
 
         public bool RemoveChatroom(Chatroom feedback)
-        {
-            throw new NotImplementedException();
-        }
-
-        bool IDataStore.AddChatroom(Chatroom chatroom)
-        {
-            throw new NotImplementedException();
-        }
-
-        bool IDataStore.UpdateUser(User user)
         {
             throw new NotImplementedException();
         }
