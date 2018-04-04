@@ -7,5 +7,12 @@ namespace LocalHost.Models
         public string SenderID { get; set; }
         public string SenderName { get; set; }
         public string LineText { get; set; }
+
+        public Message(){
+            MessageID = "";
+            SenderID = "";
+            SenderName = "";
+            LineText = "";
+        }
     }
 }

@@ -15,6 +15,8 @@ namespace LocalHost.Views
             InitializeComponent();
             BindingContext = viewModel = new ChatroomListViewModel(null, this);
 
+            viewModel.chatroomListView = ChatroomsListView;
+
             ChatroomsListView.ItemsSource = viewModel.list;
 
             //Disables multi-select
@@ -36,7 +38,7 @@ namespace LocalHost.Views
         }
 
         public void openCreateChatroomPage(object sender, EventArgs e){
-            Navigation.PushAsync(new CreateChatroomPage());
+            Navigation.PushAsync(new CreateChatroomPage(viewModel));
         }
     }
 }

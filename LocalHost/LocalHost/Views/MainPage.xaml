@@ -10,7 +10,7 @@
             <local:ChatroomListPage/>
         </x:Arguments>
     </NavigationPage>
-     <NavigationPage Title="Account">
+    <NavigationPage Title="Account">
         <x:Arguments>
              <local:AccountPage/> 
         </x:Arguments>

@@ -10,6 +10,7 @@ namespace LocalHost.ViewModels
     {
         IDataStore DataStore;
         public ChatroomList list { get; set; }
+        public ListView chatroomListView;
 
         public ChatroomListViewModel(ChatroomList list, Page page) : base(page)
         {
@@ -24,8 +25,26 @@ namespace LocalHost.ViewModels
             this.list = list;
         }
 
-        public void addChatroom(){
-            
+        public void addChatroom(string newChatroomTitle){
+            Chatroom newChatroom = new Chatroom();
+            newChatroom.Title = newChatroomTitle;
+
+            //Fake - fix this
+            newChatroom.AdminID = "";
+            newChatroom.ID = "";
+            newChatroom.Location = new string[] { "", "" };
+            newChatroom.ParticipantIDs = new string[] { "" };
+            Message initMessage = new Message();
+            initMessage.LineText = ("Welcome to " + newChatroomTitle + "!");
+            initMessage.MessageID = "";
+            initMessage.SenderID = "";
+            initMessage.SenderName = "LocalHost";
+            newChatroom.ChatLog.Add("Poops", initMessage);
+
+            list.Add(newChatroom);
+            DataStore.UpdateChatrooms(list);
+            getChatrooms();
+            chatroomListView.ItemsSource = list;
         }
 
         public void deleteChatroom(Chatroom chatroom){

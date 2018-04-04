@@ -10,5 +10,10 @@ namespace LocalHost.Models
         public string[] ParticipantIDs { get; set; }
         public string AdminID { get; set; }
         public SortedDictionary<string, Message> ChatLog { get; set; }
+
+        public Chatroom()
+        {
+            ChatLog = new SortedDictionary<string, Message>();
+        }
     }
 }
