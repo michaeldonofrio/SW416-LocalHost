@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage Title="Account" 
+<ContentPage Title="Settings" 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="LocalHost.Views.AccountPage"
-    >
+    > 
     <ContentPage.Content>
-        <StackLayout>
-        <Label
-            Text="{Binding Username}"
-            />
-        <Label
-            Text="{Binding Id}"
-            />
-        <Label
-            Text="{Binding FirstName}"
-            />
-        <Label
-            Text="{Binding LastName}"
-            />
-        <Label
-            Text="{Binding Location}"
-            />
-       </StackLayout>
+        <TableView Intent="Form">
+            <TableRoot>
+                <TableSection Title="Profile">
+                    <EntryCell Label="Username"
+                               x:Name="UsernameCell"
+                               Text="{Binding Username}"
+                               Completed="updateUser"/>
+                    <EntryCell Label="Name"
+                               x:Name="NameCell"
+                               Text="{Binding Name}"
+                               Completed="updateUser"/>
+                    <EntryCell IsEnabled="false"
+                               Label="ID"
+                               Placeholder="{Binding ID}"/>
+                    <EntryCell IsEnabled="false"
+                               Label="Location"
+                               Placeholder="{Binding Location}"/>
+                </TableSection>
+                <TableSection Title="Privacy">
+                    <SwitchCell Text = "Share Public Profile" On ="true"/>
+                </TableSection>
+            </TableRoot>   
+        </TableView>
     </ContentPage.Content>
 </ContentPage>
