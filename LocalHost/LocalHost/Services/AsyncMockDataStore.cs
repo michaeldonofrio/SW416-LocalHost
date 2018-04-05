@@ -51,16 +51,16 @@ namespace LocalHost
             userDataFile = dataFolder.CreateFileAsync("user.json", CreationCollisionOption.OpenIfExists).Result;
             chatroomsDataFile = dataFolder.CreateFileAsync("chatrooms.json", CreationCollisionOption.OpenIfExists).Result;
 
-            Debug.WriteLine(dataFolder.Path);
+            Debug.WriteLine("Local data storage path: \n" + dataFolder.Path);
 
-            //Mock data
-            var userJson = ResourceLoader.GetEmbeddedResourceString(Assembly.Load(new AssemblyName("LocalHost")), "user.json");
-            userDataFile.WriteAllTextAsync(userJson).Wait();
+            //Load Mock data
+            if (GetUser().Result == null){
+                var userJson = ResourceLoader.GetEmbeddedResourceString(Assembly.Load(new AssemblyName("LocalHost")), "user.json");
+                userDataFile.WriteAllTextAsync(userJson).Wait();
 
-            var chatroomsJson = ResourceLoader.GetEmbeddedResourceString(Assembly.Load(new AssemblyName("LocalHost")), "chatrooms.json");
-            chatroomsDataFile.WriteAllTextAsync(chatroomsJson).Wait();
-
-
+                var chatroomsJson = ResourceLoader.GetEmbeddedResourceString(Assembly.Load(new AssemblyName("LocalHost")), "chatrooms.json");
+                chatroomsDataFile.WriteAllTextAsync(chatroomsJson).Wait();
+            }
             return this;
         }
 
