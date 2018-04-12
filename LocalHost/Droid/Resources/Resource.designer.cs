@@ -2672,7 +2672,7 @@ namespace LocalHost.Droid
 			public const int icon = 2130837740;
 			
 			// aapt resource value: 0x7f0200ed
-			public const int LocalHostLogo = 2130837741;
+			public const int LocalHost_icon = 2130837741;
 			
 			// aapt resource value: 0x7f0200ee
 			public const int mr_button_connected_dark = 2130837742;
