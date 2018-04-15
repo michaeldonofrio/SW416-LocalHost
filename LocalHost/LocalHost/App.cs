@@ -8,11 +8,14 @@ namespace LocalHost
 {
     public partial class App : Application
     {
-        public static AsyncMockDataStore dataStore = AsyncMockDataStore.CreateAsync().Result;
+        public static AsyncMockDataStore dataStore;
 
         public App()
         {
             MainPage = new MainPage();
+
+            var command = new Command(async () => { dataStore = await AsyncMockDataStore.CreateAsync(); });
+            command.Execute(null);
         }
 
         protected override void OnStart()
