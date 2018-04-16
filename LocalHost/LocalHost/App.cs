@@ -3,6 +3,7 @@ using System.Diagnostics;
 using LocalHost.Models;
 using LocalHost.Views;
 using LocalHost.ViewModels;
+using System.Threading.Tasks;
 
 namespace LocalHost
 {
@@ -12,10 +13,9 @@ namespace LocalHost
 
         public App()
         {
-            MainPage = new MainPage();
+            dataStore = AsyncMockDataStore.Create();
 
-            var command = new Command(async () => { dataStore = await AsyncMockDataStore.CreateAsync(); });
-            command.Execute(null);
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()

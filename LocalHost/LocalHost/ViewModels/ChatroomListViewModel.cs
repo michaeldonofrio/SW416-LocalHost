@@ -16,16 +16,11 @@ namespace LocalHost.ViewModels
         {
             this.list = list;
             DataStore = App.dataStore;
-            getChatrooms();
+            getChatRoomsCommand().Execute(null);
         }
 
-        public void getChatrooms()
+        public void addChatroom(string newChatroomTitle)
         {
-            ChatroomList list = DataStore.GetChatrooms().Result;
-            this.list = list;
-        }
-
-        public void addChatroom(string newChatroomTitle){
             Chatroom newChatroom = new Chatroom();
             newChatroom.Title = newChatroomTitle;
 
@@ -43,14 +38,30 @@ namespace LocalHost.ViewModels
 
             list.Add(newChatroom);
             DataStore.UpdateChatrooms(list);
-            getChatrooms();
+            getChatRoomsCommand().Execute(null);
             chatroomListView.ItemsSource = list;
         }
 
-        public void deleteChatroom(Chatroom chatroom){
+        public void deleteChatroom(Chatroom chatroom)
+        {
             list.Remove(chatroom);
             DataStore.UpdateChatrooms(list);
-            getChatrooms();
+            getChatRoomsCommand().Execute(null);
+        }
+
+        private Command getChatRoomsCommand()
+        {
+            return new Command(async () => 
+            { 
+                try 
+                {  
+                    list = await DataStore.GetChatrooms(); 
+                } 
+                catch (Exception ex) 
+                { 
+                    Debug.WriteLine("ChatroomList : " + ex.Message); 
+                }
+            });
         }
     }
 }
