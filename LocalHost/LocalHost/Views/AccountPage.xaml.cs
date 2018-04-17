@@ -9,7 +9,8 @@ namespace LocalHost.Views
     public partial class AccountPage : ContentPage
     {
         AccountViewModel viewModel;
-        public AccountPage(){
+        public AccountPage()
+        {
             InitializeComponent();
             BindingContext = viewModel = new AccountViewModel(this);
         }

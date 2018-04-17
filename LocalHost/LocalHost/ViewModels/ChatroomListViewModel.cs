@@ -30,16 +30,11 @@ namespace LocalHost.ViewModels
             newChatroom.ID = "";
             newChatroom.Location = new string[] { "", "" };
             newChatroom.ParticipantIDs = new string[] { "" };
-            Message initMessage = new Message();
-            initMessage.LineText = ("Welcome to " + newChatroomTitle + "!");
-            initMessage.MessageID = "";
-            initMessage.SenderID = "";
-            initMessage.SenderName = "LocalHost";
+            Message initMessage = Chatroom.GetFirstMessage(newChatroomTitle);
             newChatroom.ChatLog.Add("Poops", initMessage);
 
             list.Add(newChatroom);
             DataStore.UpdateChatrooms(list);
-            getChatRoomsCommand().Execute(null);
             chatroomListView.ItemsSource = list;
         }
 
@@ -47,7 +42,7 @@ namespace LocalHost.ViewModels
         {
             list.Remove(chatroom);
             DataStore.UpdateChatrooms(list);
-            getChatRoomsCommand().Execute(null);
+            chatroomListView.ItemsSource = list;
         }
 
         private Command getChatRoomsCommand()
