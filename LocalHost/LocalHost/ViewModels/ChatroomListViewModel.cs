@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using LocalHost.Models;
 using LocalHost.Views;
 using Xamarin.Forms;
 
 namespace LocalHost.ViewModels
 {
-<<<<<<< HEAD
     public class ChatroomListViewModel : ViewModelBase, IObserverViewModel
-=======
-    public class ChatroomListViewModel : ViewModelBase, IDataStoreSubscriber
->>>>>>> PJK_Review
     {
         IDataStore DataStore;
         public ChatroomList list { get; set; }
@@ -22,7 +17,6 @@ namespace LocalHost.ViewModels
             this.list = list;
             DataStore = App.dataStore;
             DataStore.Subscribe(this);
-<<<<<<< HEAD
             getData();
         }
 
@@ -33,12 +27,6 @@ namespace LocalHost.ViewModels
         //}
 
         public void addChatroom(string newChatroomTitle){
-=======
-        }
-
-        public void addChatroom(string newChatroomTitle)
-        {
->>>>>>> PJK_Review
             Chatroom newChatroom = new Chatroom();
             newChatroom.Title = newChatroomTitle;
 
@@ -47,7 +35,6 @@ namespace LocalHost.ViewModels
             newChatroom.ID = "";
             newChatroom.Location = new string[] { "", "" };
             newChatroom.ParticipantIDs = new string[] { "" };
-<<<<<<< HEAD
             Message initMessage = new Message();
             initMessage.LineText = ("Welcome to " + newChatroomTitle + "!");
             initMessage.MessageID = "";
@@ -58,21 +45,12 @@ namespace LocalHost.ViewModels
             list.Add(newChatroom);
             DataStore.UpdateChatrooms(list);
             //getChatrooms();
-=======
-            Message initMessage = Chatroom.GetFirstMessage(newChatroomTitle);
-            newChatroom.ChatLog.Add("Poops", initMessage);
-
-            list.Add(newChatroom);
-            DataStore.UpdateChatrooms(list);
->>>>>>> PJK_Review
             chatroomListView.ItemsSource = list;
         }
 
-        public void deleteChatroom(Chatroom chatroom)
-        {
+        public void deleteChatroom(Chatroom chatroom){
             list.Remove(chatroom);
             DataStore.UpdateChatrooms(list);
-<<<<<<< HEAD
             //getChatrooms();
         }
 
@@ -80,30 +58,6 @@ namespace LocalHost.ViewModels
         {
             ChatroomList list = DataStore.GetChatrooms().Result;
             this.list = list;
-=======
-            chatroomListView.ItemsSource = list;
-        }
-
-        private Command getChatRoomsCommand()
-        {
-            return new Command(async () => 
-            { 
-                try 
-                {  
-                    list = await DataStore.GetChatrooms(); 
-                } 
-                catch (Exception ex) 
-                { 
-                    Debug.WriteLine("ChatroomList : " + ex.Message); 
-                }
-            });
-        }
-
-        public async Task FinshedLoading(IDataStore dataStore)
-        {
-            list = await DataStore.GetChatrooms();
-            chatroomListView.ItemsSource = list;
->>>>>>> PJK_Review
         }
     }
 }
