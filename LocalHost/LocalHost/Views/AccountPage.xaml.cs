@@ -11,9 +11,10 @@ namespace LocalHost.Views
     public partial class AccountPage : ContentPage
     {
         AccountViewModel viewModel;
-        public AccountPage(){
+        public AccountPage()
+        {
             InitializeComponent();
-            BindingContext = viewModel = new AccountViewModel(null, this);
+            BindingContext = viewModel = new AccountViewModel(this);
         }
 
         void updateUser (object sender, System.EventArgs e)
