@@ -8,19 +8,22 @@ using Plugin.EmbeddedResource;
 using System.Collections.Generic;
 using System.Diagnostics;
 using PCLStorage;
+using LocalHost.ViewModels;
 
 namespace LocalHost
 {
-    public class AsyncMockDataStore : IDataStore
+    public class AsyncDataStore : IDataStore
     {
         IFolder rootFolder;
         IFolder dataFolder;
         IFile userDataFile;
         IFile chatroomsDataFile;
 
-        public static Task<AsyncMockDataStore> CreateAsync()
+        List<IObserverViewModel> observerList = new List<IObserverViewModel>();
+
+        public static Task<AsyncDataStore> CreateAsync()
         {
-            var ret = new AsyncMockDataStore();
+            var ret = new AsyncDataStore();
             return ret.InitializeAsync();
         }
 
@@ -30,11 +33,12 @@ namespace LocalHost
             string chatroomsJson = chatroomsDataFile.ReadAllTextAsync().Result;
             var tempList = JsonConvert.DeserializeObject<List<Chatroom>>(chatroomsJson);
 
-            foreach (Chatroom c in tempList)
-            {
-               ChatList.Add(c);
+            if (tempList != null){
+                foreach (Chatroom c in tempList)
+                    {
+                        ChatList.Add(c);
+                    }
             }
-
             return ChatList;
         }
 
@@ -44,7 +48,7 @@ namespace LocalHost
             return JsonConvert.DeserializeObject<User>(userJson);
         }
 
-        private async Task<AsyncMockDataStore> InitializeAsync()
+        private async Task<AsyncDataStore> InitializeAsync()
         {
             rootFolder = FileSystem.Current.LocalStorage;
             dataFolder = rootFolder.CreateFolderAsync("data_folder", CreationCollisionOption.OpenIfExists).Result;
@@ -53,14 +57,12 @@ namespace LocalHost
 
             Debug.WriteLine("Local data storage path: \n" + dataFolder.Path);
 
-            //Load Mock data
+            ////Load init chatroom if first load
             if (GetUser().Result == null){
-                var userJson = ResourceLoader.GetEmbeddedResourceString(Assembly.Load(new AssemblyName("LocalHost")), "user.json");
-                userDataFile.WriteAllTextAsync(userJson).Wait();
-
                 var chatroomsJson = ResourceLoader.GetEmbeddedResourceString(Assembly.Load(new AssemblyName("LocalHost")), "chatrooms.json");
                 chatroomsDataFile.WriteAllTextAsync(chatroomsJson).Wait();
             }
+
             return this;
         }
 
@@ -69,6 +71,7 @@ namespace LocalHost
             Debug.WriteLine(chatroomsDataFile.Path);
             string newChatroomListJson = JsonConvert.SerializeObject(chatrooms);
             chatroomsDataFile.WriteAllTextAsync(newChatroomListJson).Wait();
+            NotifyObservers();
             return Task.FromResult(true);
         }
 
@@ -76,8 +79,22 @@ namespace LocalHost
         {
             string newUserJson = JsonConvert.SerializeObject(user);
             userDataFile.WriteAllTextAsync(newUserJson).Wait();
+            NotifyObservers();
             return Task.FromResult(true);
         }
+
+        public void Subscribe(IObserverViewModel observer)
+        {
+            observerList.Add(observer);
+        }
+
+
+        public void NotifyObservers(){
+            foreach (IObserverViewModel observer in observerList){
+                observer.getData();
+            }
+        }
+
 
     }
 }

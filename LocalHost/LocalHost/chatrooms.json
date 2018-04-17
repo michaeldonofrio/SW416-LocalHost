@@ -1,43 +1,16 @@
 ﻿[
   {
-    "ID": "00023",
-    "Title": "Test Chatroom 1",
+    "ID": "00000",
+    "Title": "Welcome!",
     "Location": [ "TC1_longitude", "TC1_latitude" ],
-    "ParticipantsIDs": [ "UserID_1", "UserID_2", "UserID_3" ],
-    "AdminID": "UserID_1",
+    "ParticipantsIDs": [],
+    "AdminID": "LocalHost",
     "ChatLog": {
       "2018-04-02T13:45:30":{
-          "MessageID": "Message1_ID",
-          "SenderID": "SenderID_1",
-          "SenderName": "John Smith",
-          "LineText": "This is the first message!"
-      },
-      "2018-04-02T14:42:90": {
-        "MessageID": "Message2_ID",
-        "SenderID": "SenderID_2",
-        "SenderName": "Michael Donofrio",
-        "LineText": "This is the second message!"
-      }
-    }
-  },
-  {
-    "ID": "00246",
-    "Title": "Test Chatroom 2",
-    "Location": [ "TC2_longitude", "TC2_latitude" ],
-    "ParticipantIDs": [ "UserID_4", "UserID_5", "UserID_6" ],
-    "AdminID": "UserID_5",
-    "ChatLog": {
-      "2018-04-02T13:45:30": {
-        "MessageID": "Message1_ID",
-        "SenderID": "SenderID_1",
-        "SenderName": "Jane Doe",
-        "LineText": "Hello everyone!"
-      },
-      "2018-04-02T14:42:90": {
-        "MessageID": "Message2_ID",      
-        "SenderID": "SenderID_2",
-        "SenderName": "John Smith",  
-        "LineText": "Hi there"
+          "MessageID": "00000",
+          "SenderID": "Admin_ID",
+          "SenderName": "LocalHost",
+          "LineText": "Welcome to LocalHost! This is a test message."
       }
     }
   }

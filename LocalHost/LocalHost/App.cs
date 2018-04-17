@@ -8,11 +8,18 @@ namespace LocalHost
 {
     public partial class App : Application
     {
-        public static AsyncMockDataStore dataStore = AsyncMockDataStore.CreateAsync().Result;
+        public static AsyncDataStore dataStore = AsyncDataStore.CreateAsync().Result;
+        public bool NoUserData = (dataStore.GetUser().Result == null);
 
         public App()
         {
-            MainPage = new MainPage();
+            if (NoUserData){
+                MainPage = new MainPage();
+                MainPage.Navigation.PushModalAsync(new SignUpPage());
+            }else{
+                MainPage = new MainPage();
+            }
+
         }
 
         protected override void OnStart()

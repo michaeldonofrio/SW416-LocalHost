@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace LocalHost.ViewModels
 {
-    public class ChatroomListViewModel : ViewModelBase
+    public class ChatroomListViewModel : ViewModelBase, IObserverViewModel
     {
         IDataStore DataStore;
         public ChatroomList list { get; set; }
@@ -16,14 +16,15 @@ namespace LocalHost.ViewModels
         {
             this.list = list;
             DataStore = App.dataStore;
-            getChatrooms();
+            DataStore.Subscribe(this);
+            getData();
         }
 
-        public void getChatrooms()
-        {
-            ChatroomList list = DataStore.GetChatrooms().Result;
-            this.list = list;
-        }
+        //public void getChatrooms()
+        //{
+        //    ChatroomList list = DataStore.GetChatrooms().Result;
+        //    this.list = list;
+        //}
 
         public void addChatroom(string newChatroomTitle){
             Chatroom newChatroom = new Chatroom();
@@ -39,18 +40,24 @@ namespace LocalHost.ViewModels
             initMessage.MessageID = "";
             initMessage.SenderID = "";
             initMessage.SenderName = "LocalHost";
-            newChatroom.ChatLog.Add("Poops", initMessage);
+            newChatroom.ChatLog.Add("0000", initMessage);
 
             list.Add(newChatroom);
             DataStore.UpdateChatrooms(list);
-            getChatrooms();
+            //getChatrooms();
             chatroomListView.ItemsSource = list;
         }
 
         public void deleteChatroom(Chatroom chatroom){
             list.Remove(chatroom);
             DataStore.UpdateChatrooms(list);
-            getChatrooms();
+            //getChatrooms();
+        }
+
+        public void getData()
+        {
+            ChatroomList list = DataStore.GetChatrooms().Result;
+            this.list = list;
         }
     }
 }

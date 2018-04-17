@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using LocalHost.Models;
 using LocalHost.ViewModels;
+using Plugin.Geolocator;
 using Xamarin.Forms;
 
 namespace LocalHost.Views
