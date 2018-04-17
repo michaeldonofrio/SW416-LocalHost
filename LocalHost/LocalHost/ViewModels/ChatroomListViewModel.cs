@@ -13,9 +13,8 @@ namespace LocalHost.ViewModels
         public ChatroomList list { get; set; }
         public ListView chatroomListView;
 
-        public ChatroomListViewModel(ChatroomList list, Page page) : base(page)
+        public ChatroomListViewModel(Page page) : base(page)
         {
-            this.list = list;
             DataStore = App.dataStore;
             MessagingCenter.Subscribe<AsyncMockDataStore>(this, AsyncMockDataStore.LOAD_FINISHED, (sender) => { GetChatRoomsCommand().Execute(null); });
         }

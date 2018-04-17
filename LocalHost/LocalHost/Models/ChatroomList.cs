@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace LocalHost.Models
 {
-    public class ChatroomList : List<Chatroom>
+    public class ChatroomList : ObservableCollection<Chatroom>
     {
-        public List<Chatroom> ChatList { get; set; }
     }
 }

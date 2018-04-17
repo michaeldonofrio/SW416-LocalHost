@@ -13,7 +13,7 @@ namespace LocalHost.Views
         public ChatroomListPage()
         {
             InitializeComponent();
-            BindingContext = viewModel = new ChatroomListViewModel(null, this);
+            BindingContext = viewModel = new ChatroomListViewModel(this);
 
             viewModel.chatroomListView = ChatroomsListView;
 
