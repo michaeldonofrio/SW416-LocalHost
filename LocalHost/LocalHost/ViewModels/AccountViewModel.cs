@@ -6,8 +6,10 @@ using Xamarin.Forms;
 
 namespace LocalHost.ViewModels
 {
-    public class AccountViewModel : ViewModelBase, IDataStoreSubscriber
+    public class AccountViewModel : ViewModelBase
     {
+        public const string UPDATE_NEEDED = "update";
+
         IDataStore DataStore;
         public User User { get; set; }
         public string ID { get { return (User?.ID); }}
@@ -19,18 +21,19 @@ namespace LocalHost.ViewModels
         {
             // Could use a container here, but for simplicity this is OK.
             DataStore = App.dataStore;
-            DataStore.Subscribe(this);
+            MessagingCenter.Subscribe<AsyncMockDataStore>(this, AsyncMockDataStore.LOAD_FINISHED, (sender) => { Update(); });
+        }
+
+        private async void Update()
+        {
+            User = await DataStore.GetUser();
+            MessagingCenter.Send<AccountViewModel>(this, UPDATE_NEEDED);
         }
 
         public void updateUser(string updatedUsername, string updatedName)
         {
             User.Username = updatedUsername;
             DataStore.UpdateUser(User);
-        }
-
-        public async Task FinshedLoading(IDataStore dataStore)
-        {
-            User = await DataStore.GetUser();
         }
     }
 }

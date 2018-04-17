@@ -15,7 +15,8 @@ namespace LocalHost.Views
             BindingContext = this.viewModel = viewModel;
         }
 
-        public void createChatroom(object sender, EventArgs e){
+        public void createChatroom(object sender, EventArgs e)
+        {
             string newChatroomTitle = NewChatroomTitle.Text;
             viewModel.addChatroom(newChatroomTitle);
             Navigation.PopAsync();

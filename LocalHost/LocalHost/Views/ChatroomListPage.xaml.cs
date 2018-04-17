@@ -31,13 +31,15 @@ namespace LocalHost.Views
             };
         }
 
-        public void deleteChatroom(object sender, EventArgs e){
+        public void deleteChatroom(object sender, EventArgs e)
+        {
             var mi = ((MenuItem)sender);
             viewModel.deleteChatroom(mi.CommandParameter as Chatroom);
             ChatroomsListView.ItemsSource = viewModel.list;
         }
 
-        public void openCreateChatroomPage(object sender, EventArgs e){
+        public void openCreateChatroomPage(object sender, EventArgs e)
+        {
             Navigation.PushAsync(new CreateChatroomPage(viewModel));
         }
     }

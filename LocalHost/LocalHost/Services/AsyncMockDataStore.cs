@@ -13,17 +13,17 @@ namespace LocalHost
 {
     public class AsyncMockDataStore : IDataStore
     {
+        public const string LOAD_FINISHED = "Finished";
         IFolder rootFolder;
         IFolder dataFolder;
         IFile userDataFile;
         IFile chatroomsDataFile;
-        List<IDataStoreSubscriber> listOfSubscribers;
+
 
         public AsyncMockDataStore()
         {
             var init = new Command(async () => { await InitializeAsync(); }) ;
             init.Execute(null);
-            listOfSubscribers = new List<IDataStoreSubscriber>();
         }
 
         public static AsyncMockDataStore Create()
@@ -64,16 +64,21 @@ namespace LocalHost
             Debug.WriteLine("Local data storage path: \n" + dataFolder.Path);
 
             //Load Mock data
-            if (await GetUser() == null)
+            var user = await GetUser();
+            if (user == null)
             {
                 var userJson = ResourceLoader.GetEmbeddedResourceString(Assembly.Load(new AssemblyName("LocalHost")), "user.json");
                 await userDataFile.WriteAllTextAsync(userJson);
+            }
 
+            var chatRooms = await GetChatrooms();
+            if (null == chatRooms)
+            {
                 var chatroomsJson = ResourceLoader.GetEmbeddedResourceString(Assembly.Load(new AssemblyName("LocalHost")), "chatrooms.json");
                 await chatroomsDataFile.WriteAllTextAsync(chatroomsJson);
             }
 
-            NotifyAllSubscibersFinished();
+            MessagingCenter.Send<AsyncMockDataStore>(this, LOAD_FINISHED);
 
             return this;
         }
@@ -93,21 +98,6 @@ namespace LocalHost
             userDataFile.WriteAllTextAsync(newUserJson);
 
             return Task.FromResult(true);
-        }
-
-        void IDataStore.Subscribe(IDataStoreSubscriber subscriber)
-        {
-            listOfSubscribers.Add(subscriber);
-        }
-
-        void NotifyAllSubscibersFinished()
-        {
-            foreach (var subscriber in listOfSubscribers)
-            {
-                // This has to be called asynchronously or else you'll get a lock-up.
-                var cmd = new Command(async () => { await subscriber.FinshedLoading(this); });
-                cmd.Execute(null);
-            }
         }
     }
 }
