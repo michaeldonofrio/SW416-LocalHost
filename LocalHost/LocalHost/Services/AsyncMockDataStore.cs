@@ -17,11 +17,13 @@ namespace LocalHost
         IFolder dataFolder;
         IFile userDataFile;
         IFile chatroomsDataFile;
+        List<IDataStoreSubscriber> listOfSubscribers;
 
         public AsyncMockDataStore()
         {
             var init = new Command(async () => { await InitializeAsync(); }) ;
             init.Execute(null);
+            listOfSubscribers = new List<IDataStoreSubscriber>();
         }
 
         public static AsyncMockDataStore Create()
@@ -48,7 +50,6 @@ namespace LocalHost
         {
             // One trouble is that userDataFile could be null.
             string userJson = await userDataFile.ReadAllTextAsync();
-
             return JsonConvert.DeserializeObject<User>(userJson);
         }
 
@@ -72,6 +73,8 @@ namespace LocalHost
                 await chatroomsDataFile.WriteAllTextAsync(chatroomsJson);
             }
 
+            NotifyAllSubscibersFinished();
+
             return this;
         }
 
@@ -92,5 +95,19 @@ namespace LocalHost
             return Task.FromResult(true);
         }
 
+        void IDataStore.Subscribe(IDataStoreSubscriber subscriber)
+        {
+            listOfSubscribers.Add(subscriber);
+        }
+
+        void NotifyAllSubscibersFinished()
+        {
+            foreach (var subscriber in listOfSubscribers)
+            {
+                // This has to be called asynchronously or else you'll get a lock-up.
+                var cmd = new Command(async () => { await subscriber.FinshedLoading(this); });
+                cmd.Execute(null);
+            }
+        }
     }
 }

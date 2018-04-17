@@ -1,40 +1,36 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using LocalHost.Models;
 using Xamarin.Forms;
 
 namespace LocalHost.ViewModels
 {
-    public class AccountViewModel : ViewModelBase
+    public class AccountViewModel : ViewModelBase, IDataStoreSubscriber
     {
         IDataStore DataStore;
-        public User user { get; set; }
-        public string ID { get { return (user?.ID); }}
-        public string Username { get { return (user?.Username); } }
-        public string Name { get { return (user?.FirstName + " " + user?.LastName); }}
-        public string Location { get { return (user?.Location[0] +", " + user?.Location[1]); }}
+        public User User { get; set; }
+        public string ID { get { return (User?.ID); }}
+        public string Username { get { return (User?.Username); } }
+        public string Name { get { return (User?.FirstName + " " + User?.LastName); }}
+        public string Location { get { return (User?.Location[0] +", " + User?.Location[1]); }}
    
-
-        public AccountViewModel(User user, Page page) : base(page)
+        public AccountViewModel(Page page) : base(page)
         {
-            this.user = user;
+            // Could use a container here, but for simplicity this is OK.
             DataStore = App.dataStore;
-            var loadUser = new Command(async () => { 
-                try 
-                { 
-                    user = await DataStore.GetUser(); 
-                } 
-                catch (Exception ex) 
-                { 
-                    Debug.WriteLine("AccountViewModel : " + ex.Message);
-                } });
-            loadUser.Execute(null);
+            DataStore.Subscribe(this);
         }
 
         public void updateUser(string updatedUsername, string updatedName)
         {
-            user.Username = updatedUsername;
-            DataStore.UpdateUser(user);
+            User.Username = updatedUsername;
+            DataStore.UpdateUser(User);
+        }
+
+        public async Task FinshedLoading(IDataStore dataStore)
+        {
+            User = await DataStore.GetUser();
         }
     }
 }

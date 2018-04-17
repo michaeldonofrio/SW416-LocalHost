@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using LocalHost.Models;
 using LocalHost.Views;
 using Xamarin.Forms;
 
 namespace LocalHost.ViewModels
 {
-    public class ChatroomListViewModel : ViewModelBase
+    public class ChatroomListViewModel : ViewModelBase, IDataStoreSubscriber
     {
         IDataStore DataStore;
         public ChatroomList list { get; set; }
@@ -16,7 +17,7 @@ namespace LocalHost.ViewModels
         {
             this.list = list;
             DataStore = App.dataStore;
-            getChatRoomsCommand().Execute(null);
+            DataStore.Subscribe(this);
         }
 
         public void addChatroom(string newChatroomTitle)
@@ -62,6 +63,12 @@ namespace LocalHost.ViewModels
                     Debug.WriteLine("ChatroomList : " + ex.Message); 
                 }
             });
+        }
+
+        public async Task FinshedLoading(IDataStore dataStore)
+        {
+            list = await DataStore.GetChatrooms();
+            chatroomListView.ItemsSource = list;
         }
     }
 }

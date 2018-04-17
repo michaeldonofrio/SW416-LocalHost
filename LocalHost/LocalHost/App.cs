@@ -9,12 +9,11 @@ namespace LocalHost
 {
     public partial class App : Application
     {
-        public static AsyncMockDataStore dataStore;
+        public static IDataStore dataStore;
 
         public App()
         {
             dataStore = AsyncMockDataStore.Create();
-
             MainPage = new MainPage();
         }
 
