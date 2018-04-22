@@ -38,11 +38,15 @@ namespace LocalHost
             string chatroomsJson = await chatroomsDataFile.ReadAllTextAsync();
             var tempList = JsonConvert.DeserializeObject<List<Chatroom>>(chatroomsJson);
 
-            foreach (Chatroom c in tempList)
-            {
-               ChatList.Add(c);
+
+            if (tempList != null){
+                foreach (Chatroom c in tempList)
+                {
+                    ChatList.Add(c);
+                }
             }
 
+          
             return ChatList;
         }
 
