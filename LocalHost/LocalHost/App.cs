@@ -13,7 +13,7 @@ namespace LocalHost
 
         public App()
         {
-            dataStore = AsyncMockDataStore.Create();
+            dataStore = OfflineDataStore.Create();
             MainPage = new MainPage();
         }
 

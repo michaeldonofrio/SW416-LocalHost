@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace LocalHost
 {
-    public class AsyncMockDataStore : IDataStore
+    public class OfflineDataStore : IDataStore
     {
         public const string LOAD_FINISHED = "Finished";
         IFolder rootFolder;
@@ -20,15 +20,15 @@ namespace LocalHost
         IFile chatroomsDataFile;
 
 
-        public AsyncMockDataStore()
+        public OfflineDataStore()
         {
             var init = new Command(async () => { await InitializeAsync(); }) ;
             init.Execute(null);
         }
 
-        public static AsyncMockDataStore Create()
+        public static OfflineDataStore Create()
         {
-            return new AsyncMockDataStore();
+            return new OfflineDataStore();
         }
 
         public async Task<ChatroomList> GetChatrooms()
@@ -58,7 +58,7 @@ namespace LocalHost
         }
 
         // Really, this method needs to be completed before any other methods on the class are called.
-        private async Task<AsyncMockDataStore> InitializeAsync()
+        private async Task<OfflineDataStore> InitializeAsync()
         {
             rootFolder = FileSystem.Current.LocalStorage;
             dataFolder = await rootFolder.CreateFolderAsync("data_folder", CreationCollisionOption.OpenIfExists);
@@ -82,7 +82,7 @@ namespace LocalHost
                 await chatroomsDataFile.WriteAllTextAsync(chatroomsJson);
             }
 
-            MessagingCenter.Send<AsyncMockDataStore>(this, LOAD_FINISHED);
+            MessagingCenter.Send<OfflineDataStore>(this, LOAD_FINISHED);
 
             return this;
         }

@@ -21,7 +21,7 @@ namespace LocalHost.ViewModels
         {
             // Could use a container here, but for simplicity this is OK.
             DataStore = App.dataStore;
-            MessagingCenter.Subscribe<AsyncMockDataStore>(this, AsyncMockDataStore.LOAD_FINISHED, (sender) => { Update(); });
+            MessagingCenter.Subscribe<OfflineDataStore>(this, OfflineDataStore.LOAD_FINISHED, (sender) => { Update(); });
         }
 
         private async void Update()

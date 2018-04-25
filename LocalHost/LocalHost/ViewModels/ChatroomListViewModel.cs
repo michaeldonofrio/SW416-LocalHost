@@ -16,7 +16,7 @@ namespace LocalHost.ViewModels
         public ChatroomListViewModel(Page page) : base(page)
         {
             DataStore = App.dataStore;
-            MessagingCenter.Subscribe<AsyncMockDataStore>(this, AsyncMockDataStore.LOAD_FINISHED, (sender) => { GetChatRoomsCommand().Execute(null); });
+            MessagingCenter.Subscribe<OfflineDataStore>(this, OfflineDataStore.LOAD_FINISHED, (sender) => { GetChatRoomsCommand().Execute(null); });
         }
 
         public void addChatroom(string newChatroomTitle)
