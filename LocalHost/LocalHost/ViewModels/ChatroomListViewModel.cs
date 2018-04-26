@@ -1,26 +1,32 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using LocalHost.Models;
 using LocalHost.Views;
 using Xamarin.Forms;
 
 namespace LocalHost.ViewModels
 {
-    public class ChatroomListViewModel : ViewModelBase
+    public class ChatroomListViewModel : ViewModelBase, IObserverViewModel
     {
         IDataStore DataStore;
         public ChatroomList list { get; set; }
         public ListView chatroomListView;
 
-        public ChatroomListViewModel(Page page) : base(page)
+        public ChatroomListViewModel(ChatroomList list, Page page) : base(page)
         {
+            this.list = list;
             DataStore = App.dataStore;
-            MessagingCenter.Subscribe<OfflineDataStore>(this, OfflineDataStore.LOAD_FINISHED, (sender) => { GetChatRoomsCommand().Execute(null); });
+            DataStore.Subscribe(this);
+            getData();
         }
 
-        public void addChatroom(string newChatroomTitle)
-        {
+        //public void getChatrooms()
+        //{
+        //    ChatroomList list = DataStore.GetChatrooms().Result;
+        //    this.list = list;
+        //}
+
+        public void addChatroom(string newChatroomTitle){
             Chatroom newChatroom = new Chatroom();
             newChatroom.Title = newChatroomTitle;
 
@@ -29,35 +35,29 @@ namespace LocalHost.ViewModels
             newChatroom.ID = "";
             newChatroom.Location = new string[] { "", "" };
             newChatroom.ParticipantIDs = new string[] { "" };
-            Message initMessage = Chatroom.GetFirstMessage(newChatroomTitle);
+            Message initMessage = new Message();
+            initMessage.LineText = ("Welcome to " + newChatroomTitle + "!");
+            initMessage.MessageID = "";
+            initMessage.SenderID = "";
+            initMessage.SenderName = "LocalHost";
             newChatroom.ChatLog.Add("0000", initMessage);
 
             list.Add(newChatroom);
             DataStore.UpdateChatrooms(list);
+            //getChatrooms();
             chatroomListView.ItemsSource = list;
         }
 
-        public void deleteChatroom(Chatroom chatroom)
-        {
+        public void deleteChatroom(Chatroom chatroom){
             list.Remove(chatroom);
             DataStore.UpdateChatrooms(list);
-            chatroomListView.ItemsSource = list;
+            //getChatrooms();
         }
 
-        private Command GetChatRoomsCommand()
+        public void getData()
         {
-            return new Command(async () => 
-            { 
-                try 
-                {  
-                    list = await DataStore.GetChatrooms(); 
-                    chatroomListView.ItemsSource = list;
-                } 
-                catch (Exception ex) 
-                { 
-                    Debug.WriteLine("ChatroomList : " + ex.Message); 
-                }
-            });
+            ChatroomList list = DataStore.GetChatrooms().Result;
+            this.list = list;
         }
     }
 }

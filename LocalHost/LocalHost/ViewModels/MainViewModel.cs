@@ -1,9 +1,9 @@
 ﻿using System;
 namespace LocalHost.ViewModels
 {
-    public class CreateChatroomViewModel
+    public class MainViewModel
     {
-        public CreateChatroomViewModel()
+        public MainViewModel()
         {
         }
     }

@@ -15,8 +15,7 @@ namespace LocalHost.Views
             BindingContext = viewModel = new SignUpViewModel(this);
         }
 
-        public void SubmitSignUp(object sender, EventArgs e)
-        {
+        public void SubmitSignUp(object sender, EventArgs e){
             viewModel.CreateUser(UsernameEntry.Text, FirstNameEntry.Text, LastNameEntry.Text);
             Navigation.PopModalAsync();
         }

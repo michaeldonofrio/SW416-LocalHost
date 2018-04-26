@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="user.json" />
-    <EmbeddedResource Include="init_chatrooms.json" />
+    <EmbeddedResource Include="chatrooms.json" />
     <EmbeddedResource Include="Views\AccountPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -53,10 +53,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\SignUpPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\SplashPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -85,17 +81,15 @@
     <Compile Include="Views\ChatroomPage.xaml.cs">
       <DependentUpon>ChatroomPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\OfflineDataStore.cs" />
+    <Compile Include="Services\AsyncDataStore.cs" />
     <Compile Include="Views\CreateChatroomPage.xaml.cs">
       <DependentUpon>CreateChatroomPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\SignUpViewModel.cs" />
     <Compile Include="Views\SignUpPage.xaml.cs">
       <DependentUpon>SignUpPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SplashPage.xaml.cs">
-      <DependentUpon>SplashPage.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModels\SignUpViewModel.cs" />
+    <Compile Include="ViewModels\IObserverViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">

@@ -13,7 +13,7 @@ namespace LocalHost.Views
         public ChatroomListPage()
         {
             InitializeComponent();
-            BindingContext = viewModel = new ChatroomListViewModel(this);
+            BindingContext = viewModel = new ChatroomListViewModel(null, this);
 
             viewModel.chatroomListView = ChatroomsListView;
 
@@ -31,15 +31,13 @@ namespace LocalHost.Views
             };
         }
 
-        public void deleteChatroom(object sender, EventArgs e)
-        {
+        public void deleteChatroom(object sender, EventArgs e){
             var mi = ((MenuItem)sender);
             viewModel.deleteChatroom(mi.CommandParameter as Chatroom);
             ChatroomsListView.ItemsSource = viewModel.list;
         }
 
-        public void openCreateChatroomPage(object sender, EventArgs e)
-        {
+        public void openCreateChatroomPage(object sender, EventArgs e){
             Navigation.PushAsync(new CreateChatroomPage(viewModel));
         }
     }

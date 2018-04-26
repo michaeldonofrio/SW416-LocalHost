@@ -5,9 +5,9 @@ using Xamarin.Forms;
 
 namespace LocalHost.Views
 {
-    public partial class SplashPage : ContentPage
+    public partial class LoginPage : ContentPage
     {
-        public SplashPage()
+        public LoginPage()
         {
             InitializeComponent();
         }

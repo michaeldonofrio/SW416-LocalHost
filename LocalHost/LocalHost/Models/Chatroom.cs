@@ -15,15 +15,5 @@ namespace LocalHost.Models
         {
             ChatLog = new SortedDictionary<string, Message>();
         }
-
-        public static Message GetFirstMessage(string newChatroomTitle)
-        {
-            Message initMessage = new Message();
-            initMessage.LineText = ("Welcome to " + newChatroomTitle + "!");
-            initMessage.MessageID = "";
-            initMessage.SenderID = "";
-            initMessage.SenderName = "LocalHost";
-            return initMessage;
-        }
     }
 }

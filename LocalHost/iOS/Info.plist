@@ -42,5 +42,7 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location data used for the creation and joining of chatrooms.</string>
 </dict>
 </plist>

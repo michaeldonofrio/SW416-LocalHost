@@ -1,37 +1,35 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using LocalHost.Models;
+using Plugin.Geolocator;
 using Xamarin.Forms;
 
 namespace LocalHost.ViewModels
 {
-    public class AccountViewModel : ViewModelBase
+    public class AccountViewModel : ViewModelBase, IObserverViewModel
     {
         IDataStore DataStore;
         private User user;
-        public User User
+        public User User { get { return user; }
+                           set { SetProperty(ref user, value); }}
+
+        public AccountViewModel(User user, Page page) : base(page)
         {
-            get { return user; }
-            set { SetProperty(ref user, value); }
-        }
-   
-        public AccountViewModel(Page page) : base(page)
-        {
-            // Could use a container here, but for simplicity this is OK.
+            this.User = user;
             DataStore = App.dataStore;
-            MessagingCenter.Subscribe<OfflineDataStore>(this, OfflineDataStore.LOAD_FINISHED, (sender) => { Update(); });
+            DataStore.Subscribe(this);
+            getData();
         }
 
-        private async void Update()
-        {
-            User = await DataStore.GetUser();
-        }
-
-        public void updateUser(string updatedUsername, string updatedName)
-        {
+        public void updateUser(string updatedUsername, string updatedName){
             User.Username = updatedUsername;
             DataStore.UpdateUser(User);
+        }
+
+        public void getData()
+        {
+            User user = DataStore.GetUser().Result;
+            this.User = user;
         }
     }
 }

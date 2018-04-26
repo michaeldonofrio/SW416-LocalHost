@@ -3,34 +3,28 @@ using System.Diagnostics;
 using LocalHost.Models;
 using LocalHost.Views;
 using LocalHost.ViewModels;
-using System.Threading.Tasks;
 
 namespace LocalHost
 {
     public partial class App : Application
     {
-        public static OfflineDataStore dataStore;
+        public static AsyncDataStore dataStore = AsyncDataStore.CreateAsync().Result;
+        public bool NoUserData = (dataStore.GetUser().Result == null);
 
         public App()
         {
-            MainPage = new SplashPage();
+            if (NoUserData){
+                MainPage = new MainPage();
+                MainPage.Navigation.PushModalAsync(new SignUpPage());
+            }else{
+                MainPage = new MainPage();
+            }
+
         }
 
-        protected async override void OnStart()
+        protected override void OnStart()
         {
-            dataStore = await OfflineDataStore.CreateAsync();
-            Debug.WriteLine(dataStore.noUserData);
-
-            if (dataStore.noUserData)
-            {
-                MainPage = new MainPage();
-                await MainPage.Navigation.PushModalAsync(new SignUpPage());
-            }
-            else
-            {
-                MainPage = new MainPage();
-            }
-
+            // Handle when your app starts
         }
 
         protected override void OnSleep()
