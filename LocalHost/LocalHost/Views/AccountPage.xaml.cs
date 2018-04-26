@@ -13,7 +13,7 @@ namespace LocalHost.Views
         AccountViewModel viewModel;
         public AccountPage(){
             InitializeComponent();
-            BindingContext = viewModel = new AccountViewModel(null, this);
+            BindingContext = viewModel = new AccountViewModel(this);
         }
 
         void updateUser (object sender, System.EventArgs e)
