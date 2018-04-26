@@ -7,28 +7,23 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using PCLStorage;
 using Xamarin.Forms;
-using System.Threading;
 
 namespace LocalHost
 {
     public class OfflineDataStore : IDataStore
     {
         public const string LOAD_FINISHED = "Finished";
+        public bool noUserData = false;
         IFolder rootFolder;
         IFolder dataFolder;
         IFile userDataFile;
         IFile chatroomsDataFile;
 
 
-        public OfflineDataStore()
+        public async static Task<OfflineDataStore> CreateAsync()
         {
-            var init = new Command(async () => { await InitializeAsync(); }) ;
-            init.Execute(null);
-        }
-
-        public static OfflineDataStore Create()
-        {
-            return new OfflineDataStore();
+            var ret = new OfflineDataStore();
+            return await ret.InitializeAsync();
         }
 
         public async Task<ChatroomList> GetChatrooms()
@@ -67,18 +62,16 @@ namespace LocalHost
 
             Debug.WriteLine("Local data storage path: \n" + dataFolder.Path);
 
-            //Load Mock data
             var user = await GetUser();
             if (user == null)
             {
-                var userJson = ResourceLoader.GetEmbeddedResourceString(Assembly.Load(new AssemblyName("LocalHost")), "user.json");
-                await userDataFile.WriteAllTextAsync(userJson);
+                noUserData = true;
             }
 
             var chatRooms = await GetChatrooms();
-            if (null == chatRooms)
+            if (chatRooms == null)
             {
-                var chatroomsJson = ResourceLoader.GetEmbeddedResourceString(Assembly.Load(new AssemblyName("LocalHost")), "chatrooms.json");
+                var chatroomsJson = ResourceLoader.GetEmbeddedResourceString(Assembly.Load(new AssemblyName("LocalHost")), "init_chatrooms.json");
                 await chatroomsDataFile.WriteAllTextAsync(chatroomsJson);
             }
 

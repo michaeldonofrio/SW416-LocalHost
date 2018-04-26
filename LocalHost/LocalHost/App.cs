@@ -9,17 +9,28 @@ namespace LocalHost
 {
     public partial class App : Application
     {
-        public static IDataStore dataStore;
+        public static OfflineDataStore dataStore;
 
         public App()
         {
-            dataStore = OfflineDataStore.Create();
-            MainPage = new MainPage();
+            MainPage = new SplashPage();
         }
 
-        protected override void OnStart()
+        protected async override void OnStart()
         {
-            // Handle when your app starts
+            dataStore = await OfflineDataStore.CreateAsync();
+            Debug.WriteLine(dataStore.noUserData);
+
+            if (dataStore.noUserData)
+            {
+                MainPage = new MainPage();
+                await MainPage.Navigation.PushModalAsync(new SignUpPage());
+            }
+            else
+            {
+                MainPage = new MainPage();
+            }
+
         }
 
         protected override void OnSleep()

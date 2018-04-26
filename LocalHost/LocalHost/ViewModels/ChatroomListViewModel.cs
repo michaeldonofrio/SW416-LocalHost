@@ -30,7 +30,7 @@ namespace LocalHost.ViewModels
             newChatroom.Location = new string[] { "", "" };
             newChatroom.ParticipantIDs = new string[] { "" };
             Message initMessage = Chatroom.GetFirstMessage(newChatroomTitle);
-            newChatroom.ChatLog.Add("Poops", initMessage);
+            newChatroom.ChatLog.Add("0000", initMessage);
 
             list.Add(newChatroom);
             DataStore.UpdateChatrooms(list);
