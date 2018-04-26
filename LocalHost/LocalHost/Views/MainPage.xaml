@@ -10,6 +10,11 @@
             <local:ChatroomListPage/>
         </x:Arguments>
     </NavigationPage>
+    <NavigationPage Title="Nearby">
+        <x:Arguments>
+             <local:NearbyMapPage/> 
+        </x:Arguments>
+    </NavigationPage>
     <NavigationPage Title="Settings">
         <x:Arguments>
              <local:AccountPage/> 

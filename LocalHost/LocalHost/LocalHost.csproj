@@ -56,6 +56,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\NearbyMapPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,6 +94,10 @@
     </Compile>
     <Compile Include="ViewModels\SignUpViewModel.cs" />
     <Compile Include="ViewModels\IObserverViewModel.cs" />
+    <Compile Include="ViewModels\NearbyMapViewModel.cs" />
+    <Compile Include="Views\NearbyMapPage.xaml.cs">
+      <DependentUpon>NearbyMapPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
