@@ -14,4 +14,8 @@
             <Button Text="Submit" Clicked="SubmitSignUp"/>
        </StackLayout>
     </ContentPage.Content>
+<<<<<<< HEAD
 </ContentPage>
+=======
+</ContentPage>
+>>>>>>> SignUp/SignIn-Page

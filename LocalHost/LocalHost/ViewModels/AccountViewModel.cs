@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using LocalHost.Models;
+using Plugin.Geolocator;
 using Xamarin.Forms;
 
 namespace LocalHost.ViewModels
 {
+<<<<<<< HEAD
     public class AccountViewModel : ViewModelBase
     {
         IDataStore DataStore;
@@ -17,9 +18,20 @@ namespace LocalHost.ViewModels
         }
    
         public AccountViewModel(Page page) : base(page)
+=======
+    public class AccountViewModel : ViewModelBase, IObserverViewModel
+    {
+        IDataStore DataStore;
+        private User user;
+        public User User { get { return user; }
+                           set { SetProperty(ref user, value); }}
+
+        public AccountViewModel(User user, Page page) : base(page)
+>>>>>>> SignUp/SignIn-Page
         {
-            // Could use a container here, but for simplicity this is OK.
+            this.User = user;
             DataStore = App.dataStore;
+<<<<<<< HEAD
             MessagingCenter.Subscribe<OfflineDataStore>(this, OfflineDataStore.LOAD_FINISHED, (sender) => { Update(); });
         }
 
@@ -32,6 +44,21 @@ namespace LocalHost.ViewModels
         {
             User.Username = updatedUsername;
             DataStore.UpdateUser(User);
+=======
+            DataStore.Subscribe(this);
+            getData();
+        }
+
+        public void updateUser(string updatedUsername, string updatedName){
+            User.Username = updatedUsername;
+            DataStore.UpdateUser(User);
+        }
+
+        public void getData()
+        {
+            User user = DataStore.GetUser().Result;
+            this.User = user;
+>>>>>>> SignUp/SignIn-Page
         }
     }
 }

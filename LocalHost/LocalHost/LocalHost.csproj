@@ -56,10 +56,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+<<<<<<< HEAD
     <EmbeddedResource Include="Views\SplashPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+=======
+>>>>>>> SignUp/SignIn-Page
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,6 +88,7 @@
     <Compile Include="Views\ChatroomPage.xaml.cs">
       <DependentUpon>ChatroomPage.xaml</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Services\OfflineDataStore.cs" />
     <Compile Include="Views\CreateChatroomPage.xaml.cs">
       <DependentUpon>CreateChatroomPage.xaml</DependentUpon>
@@ -96,6 +100,17 @@
     <Compile Include="Views\SplashPage.xaml.cs">
       <DependentUpon>SplashPage.xaml</DependentUpon>
     </Compile>
+=======
+    <Compile Include="Services\AsyncDataStore.cs" />
+    <Compile Include="Views\CreateChatroomPage.xaml.cs">
+      <DependentUpon>CreateChatroomPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SignUpPage.xaml.cs">
+      <DependentUpon>SignUpPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\SignUpViewModel.cs" />
+    <Compile Include="ViewModels\IObserverViewModel.cs" />
+>>>>>>> SignUp/SignIn-Page
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
