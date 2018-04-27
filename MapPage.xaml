@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage Title="Map" 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="LocalHost.Views.MapPage"
+    > 
+    <ContentPage.Content>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <com.google.android.gms.maps.MapView android:id="@+id/mapview"
+            android:layout_width="fill_parent" 
+            android:layout_height="fill_parent" />
+
+        </LinearLayout>
+    </ContentPage.Content>
+</ContentPage>
