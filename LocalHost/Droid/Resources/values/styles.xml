@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <style name="MyTheme" parent="MyTheme.Base">
+  
+  <!--Added to create Splash Screen-->
+  <style name="MyTheme.Splash" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="android:windowBackground">@drawable/LocalHost_splash2</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowFullscreen">true</item>
+  </style>  
+  
+  <style name="MyTheme" parent="MyTheme.Base">
     </style>
     <!-- Base theme applied no matter what API -->
     <style name="MyTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -23,5 +31,6 @@
     </style>
     <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">#FF4081</item>
-    </style>
+    </style> 
+  
 </resources>
