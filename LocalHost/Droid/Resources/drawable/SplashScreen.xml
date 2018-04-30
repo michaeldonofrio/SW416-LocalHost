@@ -6,7 +6,7 @@
   </item>
   <item>
     <bitmap
-        android:src="@drawable/LocalHost_splash"
+        android:src="@drawable/LocalHost_splash2"
         android:tileMode="disabled"
         android:gravity="center"/>
   </item>
