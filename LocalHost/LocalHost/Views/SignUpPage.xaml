@@ -4,14 +4,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="LocalHost.Views.SignUpPage">
     <ContentPage.Content>
-       <StackLayout HorizontalOptions="Center" Padding="0, 100, 0, 0">
+       <StackLayout HorizontalOptions="Center" Padding="0, 100, 0, 0" x:Name="stackLayout">
             <Label Text="Username"/>
             <Entry x:Name="UsernameEntry" WidthRequest="300"/>
+            <Label Text="Password"/>
+            <Entry x:Name="PasswordEntry" WidthRequest="300" IsPassword="true"/>
             <Label Text="First Name"/>
             <Entry x:Name="FirstNameEntry" WidthRequest="300"/>
             <Label Text="Last Name"/>
             <Entry x:Name="LastNameEntry" WidthRequest="300"/>
             <Button Text="Submit" Clicked="SubmitSignUp"/>
+            <Label x:Name="ErrorMessage" Text="" IsVisible="false"/>
        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

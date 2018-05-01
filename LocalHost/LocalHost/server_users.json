@@ -1,0 +1,29 @@
+﻿{
+  "michaeldonofrio" : {
+        "ID": "UserID_1",
+        "Username": "michaeldonofrio",
+        "Password": "school1",
+        "FirstName": "Michael",
+        "LastName": "Donofrio",
+        "Location": [ "MD_longitude", "MD_latitude" ],
+        "ChatroomIDs": ["00000"]
+    },
+    "janedoe": {
+      "ID": "UserID_2",
+      "Username": "janedoe",
+      "Password": "school2",
+      "FirstName": "Jane",
+      "LastName": "Doe",
+      "Location": [ "JD_longitude", "JD_latitude" ],
+      "ChatroomIDs": [ "00000", "00001" ]
+    },
+    "johnsmith": {
+      "ID": "UserID_3",
+      "Username": "johnsmith",
+      "Password": "school3",
+      "FirstName": "John",
+      "LastName": "Smith",
+      "Location": [ "JS_longitude", "JS_latitude" ],
+      "ChatroomIDs": ["00000"]
+    }
+}

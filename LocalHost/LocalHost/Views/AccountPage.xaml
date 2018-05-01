@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage Title="Settings" 
+<ContentPage 
+    Title="Settings" 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    x:Class="LocalHost.Views.AccountPage"
-    > 
+    x:Class="LocalHost.Views.AccountPage"> 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Sign Out" Clicked="signOut"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <TableView Intent="Form">
             <TableRoot BindingContext="{Binding User}">
@@ -12,11 +15,11 @@
                     <EntryCell Label="Username"
                                x:Name="UsernameCell"
                                Text="{Binding Username}"
-                               Completed="updateUser"/>
+                               IsEnabled="false"/>
                     <EntryCell Label="Name"
                                x:Name="NameCell"
                                Text="{Binding FullName}"
-                               Completed="updateUser"/>
+                               IsEnabled="false"/>
                     <EntryCell IsEnabled="false"
                                Label="ID"
                                Placeholder="{Binding ID}"/>

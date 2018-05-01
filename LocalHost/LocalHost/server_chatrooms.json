@@ -1,0 +1,32 @@
+﻿{
+  "00000": {
+    "ID": "00000",
+    "Title": "Welcome!",
+    "Location": [ "TC1_longitude", "TC1_latitude" ],
+    "ParticipantsIDs": [],
+    "AdminID": "LocalHost",
+    "ChatLog": {
+      "2018-04-02T13:45:30": {
+        "MessageID": "00000",
+        "SenderID": "Admin_ID",
+        "SenderName": "LocalHost",
+        "LineText": "Welcome to LocalHost! This is a test message."
+      }
+    }
+  },
+  "00001": {
+    "ID": "00001",
+    "Title": "Testing Testing",
+    "Location": [ "TC1_longitude", "TC1_latitude" ],
+    "ParticipantsIDs": [],
+    "AdminID": "LocalHost",
+    "ChatLog": {
+      "2018-04-02T13:45:30": {
+        "MessageID": "00000",
+        "SenderID": "Admin_ID",
+        "SenderName": "LocalHost",
+        "LineText": "Testing Testing...1 2 3"
+      }
+    }
+  }
+}

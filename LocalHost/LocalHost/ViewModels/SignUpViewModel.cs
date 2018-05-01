@@ -14,9 +14,15 @@ namespace LocalHost.ViewModels
             DataStore = App.dataStore;
         }
 
-        public void CreateUser(string Username, string FirstName, string Lastname){
-            newUser = new User(Username, FirstName, Lastname);
-            DataStore.UpdateUser(newUser);
+        public bool CreateUser(string Username, string Password, string FirstName, string LastName){
+            Username = Username.ToLower();
+            if (DataStore.GetServerUsers().Result.ContainsKey(Username)){
+                return false;
+            }else {
+                newUser = new User(Username, Password, FirstName, LastName);
+                DataStore.SetLocalUser(newUser);
+                return true;
+            }
         }
     }
 }

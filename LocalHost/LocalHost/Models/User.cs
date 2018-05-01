@@ -13,6 +13,7 @@ namespace LocalHost.Models
 
         public string ID { get; set; }
         public string Username { get; set; }
+        public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string[] ChatroomIDs { get; set; }
@@ -32,15 +33,16 @@ namespace LocalHost.Models
             set { SetProperty(ref longitude, value); }
         }
 
-        public User(string Username, string FirstName, string LastName)
+        public User(string Username, string Password, string FirstName, string LastName)
         {
             this.ID = "";
             this.Username = Username;
+            this.Password = Password;
             this.FirstName = FirstName;
             this.LastName = LastName;
             longitude = 0.000;
             latitude = 0.000;
-            ChatroomIDs = new string[] { };
+            ChatroomIDs = new string[] {"00000"};
         }
     }
 }

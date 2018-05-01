@@ -16,8 +16,12 @@ namespace LocalHost.Views
         }
 
         public void SubmitSignUp(object sender, EventArgs e){
-            viewModel.CreateUser(UsernameEntry.Text, FirstNameEntry.Text, LastNameEntry.Text);
-            Navigation.PopModalAsync();
+            if (viewModel.CreateUser(UsernameEntry.Text, PasswordEntry.Text, FirstNameEntry.Text, LastNameEntry.Text) == false){
+                ErrorMessage.Text = "Username already in use. Please try again.";
+                ErrorMessage.IsVisible = true;
+            }else {
+                Navigation.PopModalAsync();
+            }
         }
     }
 }

@@ -16,11 +16,15 @@ namespace LocalHost.Views
             BindingContext = viewModel = new AccountViewModel(null, this);
         }
 
-        void updateUser (object sender, System.EventArgs e)
-        {
-            string updatedUsername = UsernameCell.Text;
-            string updatedName = NameCell.Text;
-            viewModel.updateUser(updatedUsername, updatedName);
+        //void updateUser (object sender, System.EventArgs e)
+        //{
+        //    string updatedUsername = UsernameCell.Text;
+        //    string updatedName = NameCell.Text;
+        //    viewModel.updateUser(updatedUsername, updatedName);
+        //}
+
+        void signOut(object sender, System.EventArgs e){
+            Navigation.PushModalAsync(new NavigationPage(new WelcomePage()));
         }
     }
 }

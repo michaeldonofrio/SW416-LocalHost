@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using LocalHost.Models;
 using LocalHost.Views;
+using MvvmHelpers;
 using Xamarin.Forms;
 
 namespace LocalHost.ViewModels
@@ -9,7 +10,7 @@ namespace LocalHost.ViewModels
     public class ChatroomListViewModel : ViewModelBase, IObserverViewModel
     {
         IDataStore DataStore;
-        public ChatroomList list { get; set; }
+        public ChatroomList list;
         public ListView chatroomListView;
 
         public ChatroomListViewModel(ChatroomList list, Page page) : base(page)
@@ -20,11 +21,6 @@ namespace LocalHost.ViewModels
             getData();
         }
 
-        //public void getChatrooms()
-        //{
-        //    ChatroomList list = DataStore.GetChatrooms().Result;
-        //    this.list = list;
-        //}
 
         public void addChatroom(string newChatroomTitle){
             Chatroom newChatroom = new Chatroom();
@@ -43,20 +39,20 @@ namespace LocalHost.ViewModels
             newChatroom.ChatLog.Add("0000", initMessage);
 
             list.Add(newChatroom);
-            DataStore.UpdateChatrooms(list);
+            DataStore.UpdateLocalChatrooms(list);
             //getChatrooms();
             chatroomListView.ItemsSource = list;
         }
 
         public void deleteChatroom(Chatroom chatroom){
             list.Remove(chatroom);
-            DataStore.UpdateChatrooms(list);
+            DataStore.UpdateLocalChatrooms(list);
             //getChatrooms();
         }
 
         public void getData()
         {
-            ChatroomList list = DataStore.GetChatrooms().Result;
+            ChatroomList list = DataStore.GetLocalChatrooms().Result;
             this.list = list;
         }
     }

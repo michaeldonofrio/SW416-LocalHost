@@ -1,5 +1,13 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="LocalHost.Views.LoginPage">
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="LocalHost.Views.LogInPage">
     <ContentPage.Content>
+        <StackLayout HorizontalOptions="Center" Padding="0, 100, 0, 0">
+            <Label Text="Username"/>
+            <Entry x:Name="UsernameEntry" WidthRequest="300"/>
+            <Label Text="Password"/>
+            <Entry x:Name="PasswordEntry" WidthRequest="300" IsPassword="true"/>
+            <Button Text="Log In" Clicked="SubmitLogIn"/>
+            <Label x:Name="ErrorMessage" Text="" IsVisible="false"/>
+       </StackLayout>
     </ContentPage.Content>
 </ContentPage>
