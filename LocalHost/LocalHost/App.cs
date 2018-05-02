@@ -8,9 +8,17 @@ namespace LocalHost
 {
     public partial class App : Application
     {
+        public static AsyncDataStore dataStore = AsyncDataStore.CreateAsync().Result;
+        public bool NoUserData = (dataStore.GetLocalUser().Result == null);
+
         public App()
         {
-            MainPage = new MainPage();
+            if (NoUserData){
+                MainPage = new MainPage();
+                MainPage.Navigation.PushModalAsync(new NavigationPage(new WelcomePage()));
+            }else{
+                MainPage = new MainPage();
+            }
 
         }
 
