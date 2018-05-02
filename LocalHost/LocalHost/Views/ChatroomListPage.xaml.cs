@@ -30,10 +30,11 @@ namespace LocalHost.Views
                 Navigation.PushAsync(new ChatroomPage(e.Item as Chatroom));
             };
 
-            viewModel.list.CollectionChanged += (sender, e) => 
+            viewModel.list.CollectionChanged += (sender, e) =>
             {
                 ChatroomsListView.ItemsSource = viewModel.list;
             };
+
         }
 
         public void deleteChatroom(object sender, EventArgs e){

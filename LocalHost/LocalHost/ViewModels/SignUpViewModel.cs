@@ -20,7 +20,7 @@ namespace LocalHost.ViewModels
                 return false;
             }else {
                 newUser = new User(Username, Password, FirstName, LastName);
-                DataStore.SetLocalUser(newUser);
+                DataStore.SetNewLocalUser(newUser);
                 return true;
             }
         }

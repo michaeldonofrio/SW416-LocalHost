@@ -21,7 +21,7 @@ namespace LocalHost.ViewModels
             if (DataStore.GetServerUsers().Result.TryGetValue(Username, out user))
             {
                 if (user.Password == Password){
-                    DataStore.SetLocalUser(user);
+                    DataStore.SetNewLocalUser(user);
                     return true;
                 }else{
                     return false;

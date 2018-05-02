@@ -9,12 +9,15 @@ namespace LocalHost.ViewModels
 {
     public class ChatroomListViewModel : ViewModelBase, IObserverViewModel
     {
+        User user;
         IDataStore DataStore;
         public ChatroomList list;
+
         public ListView chatroomListView;
 
         public ChatroomListViewModel(ChatroomList list, Page page) : base(page)
         {
+            list = new ChatroomList();
             this.list = list;
             DataStore = App.dataStore;
             DataStore.Subscribe(this);
@@ -23,24 +26,11 @@ namespace LocalHost.ViewModels
 
 
         public void addChatroom(string newChatroomTitle){
-            Chatroom newChatroom = new Chatroom();
-            newChatroom.Title = newChatroomTitle;
-
-            //Fake - fix this
-            newChatroom.AdminID = "";
-            newChatroom.ID = "";
-            newChatroom.Location = new string[] { "", "" };
-            newChatroom.ParticipantIDs = new string[] { "" };
-            Message initMessage = new Message();
-            initMessage.LineText = ("Welcome to " + newChatroomTitle + "!");
-            initMessage.MessageID = "";
-            initMessage.SenderID = "";
-            initMessage.SenderName = "LocalHost";
-            newChatroom.ChatLog.Add("0000", initMessage);
-
-            list.Add(newChatroom);
-            DataStore.UpdateLocalChatrooms(list);
-            //getChatrooms();
+            Chatroom newChatroom = new Chatroom(newChatroomTitle);
+            this.list.Add(newChatroom);
+            this.user.ChatroomIDs.Add(newChatroom.ID);
+            DataStore.UpdateLocalChatrooms(list).Wait();
+            DataStore.UpdateLocalUser(user).Wait();
             chatroomListView.ItemsSource = list;
         }
 
@@ -52,8 +42,12 @@ namespace LocalHost.ViewModels
 
         public void getData()
         {
+            user = DataStore.GetLocalUser().Result;
             ChatroomList list = DataStore.GetLocalChatrooms().Result;
-            this.list = list;
+            if (list != null)
+            {
+                this.list.ReplaceRange(list);
+            }
         }
     }
 }

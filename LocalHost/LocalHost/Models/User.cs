@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using MvvmHelpers;
@@ -16,7 +17,7 @@ namespace LocalHost.Models
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string[] ChatroomIDs { get; set; }
+        public List<string> ChatroomIDs { get; set; }
         public string FullName { get { return FirstName + " " + LastName; } }
         public string LocationString { get { return longitude + ", " + latitude; } }
 
@@ -42,7 +43,8 @@ namespace LocalHost.Models
             this.LastName = LastName;
             longitude = 0.000;
             latitude = 0.000;
-            ChatroomIDs = new string[] {"00000"};
+            ChatroomIDs = new List<string>();
+            ChatroomIDs.Add("00000");
         }
     }
 }

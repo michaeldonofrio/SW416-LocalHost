@@ -80,8 +80,11 @@ namespace LocalHost
             var serverUsersJson = ResourceLoader.GetEmbeddedResourceString(Assembly.Load(new AssemblyName("LocalHost")), "server_users.json");
             serverUsersFile.WriteAllTextAsync(serverUsersJson).Wait();
 
+            serverChatrooms = GetServerChatrooms().Result;
+            serverUsers = GetServerUsers().Result;
+
             if (GetLocalUser().Result != null)
-                PullServerToLocal().Wait();
+                PullServerChatroomsToLocal().Wait();
 
             return this;
         }
@@ -90,15 +93,15 @@ namespace LocalHost
         {
             string newChatroomListJson = JsonConvert.SerializeObject(chatrooms);
             localChatroomsFile.WriteAllTextAsync(newChatroomListJson).Wait();
-            NotifyObservers();
+            PushLocalChatroomsToServer(chatrooms);
             return Task.FromResult(true);
         }
 
-        public Task<bool> SetLocalUser(User user)
+        public Task<bool> SetNewLocalUser(User user)
         {
             string newUserJson = JsonConvert.SerializeObject(user);
             localUserFile.WriteAllTextAsync(newUserJson).Wait();
-            PullServerToLocal();
+            PullServerChatroomsToLocal();
             NotifyObservers();
             return Task.FromResult(true);
         }
@@ -129,21 +132,7 @@ namespace LocalHost
 
         }
 
-        public Task<bool> UpdateServerUsers(Dictionary<string, User> users)
-        {
-            string newServerUsersJson = JsonConvert.SerializeObject(users);
-            serverUsersFile.WriteAllTextAsync(newServerUsersJson).Wait();
-            return Task.FromResult(true);
-        }
-
-        public Task<bool> UpdateServerChatrooms(Dictionary<string, Chatroom> chatrooms)
-        {
-            string newServerChatroomsJson = JsonConvert.SerializeObject(chatrooms);
-            serverChatroomsFile.WriteAllTextAsync(newServerChatroomsJson).Wait();
-            return Task.FromResult(true);
-        }
-
-        public Task<bool> PullServerToLocal(){
+        public Task<bool> PullServerChatroomsToLocal(){
             ChatroomList chatroomListFromServer = new ChatroomList();
             serverChatrooms = GetServerChatrooms().Result;
             User user = GetLocalUser().Result;
@@ -154,10 +143,38 @@ namespace LocalHost
                 serverChatrooms.TryGetValue(chatroomID, out c);
                 chatroomListFromServer.Add(c);
             }
-            UpdateLocalChatrooms(chatroomListFromServer).Wait();
+
+            string newChatroomListJson = JsonConvert.SerializeObject(chatroomListFromServer);
+            localChatroomsFile.WriteAllTextAsync(newChatroomListJson).Wait();
 
             return Task.FromResult(true);
         }
 
+        public Task<bool> PushLocalChatroomsToServer(ChatroomList chatrooms)
+        {
+            foreach(Chatroom chatroom in chatrooms){
+                serverChatrooms[chatroom.ID] = chatroom;
+            }
+
+            string newServerChatroomListJson = JsonConvert.SerializeObject(serverChatrooms);
+            serverChatroomsFile.WriteAllTextAsync(newServerChatroomListJson).Wait();
+            return Task.FromResult(true);
+        }
+
+        public Task<bool> UpdateLocalUser(User user)
+        {
+            string newUserJson = JsonConvert.SerializeObject(user);
+            localUserFile.WriteAllTextAsync(newUserJson).Wait();
+            UpdateServerUsers(user);
+            return Task.FromResult(true);
+        }
+
+        public Task<bool> UpdateServerUsers(User user)
+        {
+            serverUsers[user.Username] = user;
+            string newServerUsersJson = JsonConvert.SerializeObject(serverUsers);
+            serverUsersFile.WriteAllTextAsync(newServerUsersJson).Wait();
+            return Task.FromResult(true);
+        }
     }
 }
