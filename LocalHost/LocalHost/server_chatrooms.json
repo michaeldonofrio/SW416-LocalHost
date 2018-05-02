@@ -2,7 +2,7 @@
   "00000": {
     "ID": "00000",
     "Title": "Welcome!",
-    "Location": [ "TC1_longitude", "TC1_latitude" ],
+    "Location": [ "0", "0" ],
     "ParticipantsIDs": [],
     "AdminID": "LocalHost",
     "ChatLog": {
@@ -16,16 +16,97 @@
   },
   "00001": {
     "ID": "00001",
-    "Title": "Testing Testing",
-    "Location": [ "TC1_longitude", "TC1_latitude" ],
+    "Title": "Sturges Park Event",
+    "Location": [ "-73.266414", "41.147595" ],
+    "ParticipantsIDs": [],
+    "AdminID": "LocalHost",
+    "ChatLog": {
+      "2018-04-02T14:45:30": {
+        "MessageID": "00000",
+        "SenderID": "Admin_ID",
+        "SenderName": "Jane Doe",
+        "LineText": "Hey everyone, what a beautiful day!"
+      },
+      "2018-04-02T15:45:30": {
+        "MessageID": "00001",
+        "SenderID": "Admin_ID",
+        "SenderName": "John Smith",
+        "LineText": "Hey Jane, did you bring the fruit punch?"
+      },
+      "2018-04-02T16:45:30": {
+        "MessageID": "00002",
+        "SenderID": "Admin_ID",
+        "SenderName": "Peter Parker",
+        "LineText": "I can bring it, no worries!"
+      }
+    }
+  },
+  "00002": {
+    "ID": "00002",
+    "Title": "This place is creepy.",
+    "Location": [ "-73.274435", "41.163964" ],
     "ParticipantsIDs": [],
     "AdminID": "LocalHost",
     "ChatLog": {
       "2018-04-02T13:45:30": {
         "MessageID": "00000",
         "SenderID": "Admin_ID",
-        "SenderName": "LocalHost",
-        "LineText": "Testing Testing...1 2 3"
+        "SenderName": "Casper",
+        "LineText": "Who's that creepy guy by the tree?"
+      },
+      "2018-04-02T14:45:30": {
+        "MessageID": "00001",
+        "SenderID": "Admin_ID",
+        "SenderName": "Boo Radley",
+        "LineText": "What guy? I don't see anyone."
+      }
+    }
+  },
+  "00003": {
+    "ID": "00003",
+    "Title": "Music in the Park",
+    "Location": [ "-73.244476", "41.160644" ],
+    "ParticipantsIDs": [],
+    "AdminID": "LocalHost",
+    "ChatLog": {
+      "2018-04-02T13:45:30": {
+        "MessageID": "00000",
+        "SenderID": "Admin_ID",
+        "SenderName": "Justin Beiber",
+        "LineText": "Hey, what time do I go on?"
+      },
+      "2018-04-02T14:45:30": {
+        "MessageID": "00001",
+        "SenderID": "Admin_ID",
+        "SenderName": "Post Malone",
+        "LineText": "Yo, you were supposed to be on like 2 hours ago."
+      },
+      "2018-04-02T15:45:30": {
+        "MessageID": "00002",
+        "SenderID": "Admin_ID",
+        "SenderName": "Justin Beiber",
+        "LineText": "Is it too late now to say sorry?"
+      }
+    }
+  },
+  "00004": {
+    "ID": "00004",
+    "Title": "RecPlex 5k Fun Run for the Cure",
+    "Location": [ "-73.255784", "41.160284" ],
+    "ParticipantsIDs": [],
+    "AdminID": "LocalHost",
+    "ChatLog": {
+      "2018-04-02T13:45:30": {
+        "MessageID": "00000",
+        "SenderID": "Admin_ID",
+        "SenderName": "Toby Flenderson",
+        "LineText": "Hey guys, just joined LocalHost"
+      },
+      "2018-04-02T14:45:30": {
+        "MessageID": "00000",
+        "SenderID": "Admin_ID",
+        "SenderName": "Michael Scott",
+        "LineText": "NO! NO, GOD NO!...NOOOOOOOOOOO"
       }
     }
   }

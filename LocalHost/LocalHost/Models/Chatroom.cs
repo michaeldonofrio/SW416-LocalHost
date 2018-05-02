@@ -6,7 +6,7 @@ namespace LocalHost.Models
     {
         public string ID { get; set; }
         public string Title { get; set; }
-        public string[] Location { get; set; }
+        public double[] Location { get; set; }
         public List<string> ParticipantIDs { get; set; }
         public string AdminID { get; set; }
         public SortedDictionary<string, Message> ChatLog { get; set; }
@@ -18,7 +18,7 @@ namespace LocalHost.Models
             this.Title = title;
             this.AdminID = adminID;
             this.ID = Guid.NewGuid().ToString();
-            this.Location = new string[] { "", "" };
+            this.Location = new double[] { 0, 0 };
             this.ParticipantIDs = new List<string>();
             ParticipantIDs.Add(adminID);
             Message initMessage = new Message();

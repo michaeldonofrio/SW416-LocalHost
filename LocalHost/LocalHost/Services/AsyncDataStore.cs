@@ -94,6 +94,7 @@ namespace LocalHost
             string newChatroomListJson = JsonConvert.SerializeObject(chatrooms);
             localChatroomsFile.WriteAllTextAsync(newChatroomListJson).Wait();
             PushLocalChatroomsToServer(chatrooms);
+            NotifyObservers();
             return Task.FromResult(true);
         }
 

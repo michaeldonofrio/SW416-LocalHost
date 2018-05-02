@@ -37,7 +37,6 @@ namespace LocalHost.ViewModels
         public void deleteChatroom(Chatroom chatroom){
             list.Remove(chatroom);
             DataStore.UpdateLocalChatrooms(list);
-            //getChatrooms();
         }
 
         public void getData()
