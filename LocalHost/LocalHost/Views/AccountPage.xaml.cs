@@ -25,6 +25,7 @@ namespace LocalHost.Views
 
         void signOut(object sender, System.EventArgs e){
             Navigation.PushModalAsync(new NavigationPage(new WelcomePage()));
+            viewModel.SignOut();
         }
     }
 }

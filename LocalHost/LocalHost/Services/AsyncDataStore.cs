@@ -101,6 +101,7 @@ namespace LocalHost
         {
             string newUserJson = JsonConvert.SerializeObject(user);
             localUserFile.WriteAllTextAsync(newUserJson).Wait();
+            UpdateServerUsers(user);
             PullServerChatroomsToLocal();
             NotifyObservers();
             return Task.FromResult(true);
@@ -165,7 +166,10 @@ namespace LocalHost
         {
             string newUserJson = JsonConvert.SerializeObject(user);
             localUserFile.WriteAllTextAsync(newUserJson).Wait();
-            UpdateServerUsers(user);
+            if (user != null)
+            {
+                UpdateServerUsers(user);
+            }
             return Task.FromResult(true);
         }
 

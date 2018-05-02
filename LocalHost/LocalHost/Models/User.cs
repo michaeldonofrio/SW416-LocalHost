@@ -36,7 +36,7 @@ namespace LocalHost.Models
 
         public User(string Username, string Password, string FirstName, string LastName)
         {
-            this.ID = "";
+            this.ID = Guid.NewGuid().ToString();
             this.Username = Username;
             this.Password = Password;
             this.FirstName = FirstName;
