@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using MvvmHelpers;
 
 namespace LocalHost.Models
 {
-    public class ChatroomList : List<Chatroom>
+    public class ChatroomList : ObservableRangeCollection<Chatroom>
     {
-        public List<Chatroom> ChatList { get; set; }
-
-        public ChatroomList(){
-            ChatList = new List<Chatroom>();
-        }
     }
 }

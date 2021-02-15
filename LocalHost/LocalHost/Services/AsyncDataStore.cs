@@ -15,9 +15,15 @@ namespace LocalHost
     public class AsyncDataStore : IDataStore
     {
         IFolder rootFolder;
-        IFolder dataFolder;
-        IFile userDataFile;
-        IFile chatroomsDataFile;
+        IFolder localDataFolder;
+        IFolder serverDataFolder;
+        IFile localUserFile;
+        IFile localChatroomsFile;
+        IFile serverUsersFile;
+        IFile serverChatroomsFile;
+
+        Dictionary<String, User> serverUsers = new Dictionary<string, User>();
+        Dictionary<String, Chatroom> serverChatrooms = new Dictionary<string, Chatroom>();
 
         List<IObserverViewModel> observerList = new List<IObserverViewModel>();
 
@@ -27,10 +33,11 @@ namespace LocalHost
             return ret.InitializeAsync();
         }
 
-        public async Task<ChatroomList> GetChatrooms()
+        public async Task<ChatroomList> GetLocalChatrooms()
         {
+
             ChatroomList ChatList = new ChatroomList();
-            string chatroomsJson = chatroomsDataFile.ReadAllTextAsync().Result;
+            string chatroomsJson = localChatroomsFile.ReadAllTextAsync().Result;
             var tempList = JsonConvert.DeserializeObject<List<Chatroom>>(chatroomsJson);
 
             if (tempList != null){
@@ -42,43 +49,61 @@ namespace LocalHost
             return ChatList;
         }
 
-        public async Task<User> GetUser()
+        public async Task<User> GetLocalUser()
         {
-            string userJson = userDataFile.ReadAllTextAsync().Result;
-            return JsonConvert.DeserializeObject<User>(userJson);
+            string userJson = localUserFile.ReadAllTextAsync().Result;
+            User user = JsonConvert.DeserializeObject<User>(userJson);
+            return user;
         }
 
         private async Task<AsyncDataStore> InitializeAsync()
         {
             rootFolder = FileSystem.Current.LocalStorage;
-            dataFolder = rootFolder.CreateFolderAsync("data_folder", CreationCollisionOption.OpenIfExists).Result;
-            userDataFile = dataFolder.CreateFileAsync("user.json", CreationCollisionOption.OpenIfExists).Result;
-            chatroomsDataFile = dataFolder.CreateFileAsync("chatrooms.json", CreationCollisionOption.OpenIfExists).Result;
 
-            Debug.WriteLine("Local data storage path: \n" + dataFolder.Path);
+            //Local Data
+            localDataFolder = rootFolder.CreateFolderAsync("local_data", CreationCollisionOption.OpenIfExists).Result;
+            localUserFile = localDataFolder.CreateFileAsync("local_user.json", CreationCollisionOption.OpenIfExists).Result;
+            localChatroomsFile = localDataFolder.CreateFileAsync("local_chatrooms.json", CreationCollisionOption.OpenIfExists).Result;
 
-            ////Load init chatroom if first load
-            if (GetUser().Result == null){
-                var chatroomsJson = ResourceLoader.GetEmbeddedResourceString(Assembly.Load(new AssemblyName("LocalHost")), "chatrooms.json");
-                chatroomsDataFile.WriteAllTextAsync(chatroomsJson).Wait();
-            }
+            //Mock Server Data
+            serverDataFolder = rootFolder.CreateFolderAsync("server_data", CreationCollisionOption.OpenIfExists).Result;
+            serverUsersFile = serverDataFolder.CreateFileAsync("server_users.json", CreationCollisionOption.OpenIfExists).Result;
+            serverChatroomsFile = serverDataFolder.CreateFileAsync("server_chatrooms.json", CreationCollisionOption.OpenIfExists).Result;
+
+            Debug.WriteLine("Local data storage path: \n" + localDataFolder.Path);
+            Debug.WriteLine("Server data storage path: \n" + serverDataFolder.Path);
+
+            //Load mock server data
+            var serverChatroomsJson = ResourceLoader.GetEmbeddedResourceString(Assembly.Load(new AssemblyName("LocalHost")), "server_chatrooms.json");
+            serverChatroomsFile.WriteAllTextAsync(serverChatroomsJson).Wait();
+
+            var serverUsersJson = ResourceLoader.GetEmbeddedResourceString(Assembly.Load(new AssemblyName("LocalHost")), "server_users.json");
+            serverUsersFile.WriteAllTextAsync(serverUsersJson).Wait();
+
+            serverChatrooms = GetServerChatrooms().Result;
+            serverUsers = GetServerUsers().Result;
+
+            if (GetLocalUser().Result != null)
+                PullServerChatroomsToLocal().Wait();
 
             return this;
         }
 
-        public Task<bool> UpdateChatrooms(ChatroomList chatrooms)
+        public Task<bool> UpdateLocalChatrooms(ChatroomList chatrooms)
         {
-            Debug.WriteLine(chatroomsDataFile.Path);
             string newChatroomListJson = JsonConvert.SerializeObject(chatrooms);
-            chatroomsDataFile.WriteAllTextAsync(newChatroomListJson).Wait();
+            localChatroomsFile.WriteAllTextAsync(newChatroomListJson).Wait();
+            PushLocalChatroomsToServer(chatrooms);
             NotifyObservers();
             return Task.FromResult(true);
         }
 
-        public Task<bool> UpdateUser(User user)
+        public Task<bool> SetNewLocalUser(User user)
         {
             string newUserJson = JsonConvert.SerializeObject(user);
-            userDataFile.WriteAllTextAsync(newUserJson).Wait();
+            localUserFile.WriteAllTextAsync(newUserJson).Wait();
+            UpdateServerUsers(user);
+            PullServerChatroomsToLocal();
             NotifyObservers();
             return Task.FromResult(true);
         }
@@ -95,6 +120,66 @@ namespace LocalHost
             }
         }
 
+        public async Task<Dictionary<string, User>> GetServerUsers()
+        {
+            string serverUsersJson = serverUsersFile.ReadAllTextAsync().Result;
+            return JsonConvert.DeserializeObject<Dictionary<String, User>>(serverUsersJson);
+        }
 
+        public async Task<Dictionary<string, Chatroom>> GetServerChatrooms()
+        {
+            string serverChatroomsJson = serverChatroomsFile.ReadAllTextAsync().Result;
+            return JsonConvert.DeserializeObject<Dictionary <String,Chatroom>>(serverChatroomsJson);
+
+
+        }
+
+        public Task<bool> PullServerChatroomsToLocal(){
+            ChatroomList chatroomListFromServer = new ChatroomList();
+            serverChatrooms = GetServerChatrooms().Result;
+            User user = GetLocalUser().Result;
+
+            foreach (String chatroomID in user.ChatroomIDs)
+            {
+                Chatroom c = new Chatroom();
+                serverChatrooms.TryGetValue(chatroomID, out c);
+                chatroomListFromServer.Add(c);
+            }
+
+            string newChatroomListJson = JsonConvert.SerializeObject(chatroomListFromServer);
+            localChatroomsFile.WriteAllTextAsync(newChatroomListJson).Wait();
+
+            return Task.FromResult(true);
+        }
+
+        public Task<bool> PushLocalChatroomsToServer(ChatroomList chatrooms)
+        {
+            foreach(Chatroom chatroom in chatrooms){
+                serverChatrooms[chatroom.ID] = chatroom;
+            }
+
+            string newServerChatroomListJson = JsonConvert.SerializeObject(serverChatrooms);
+            serverChatroomsFile.WriteAllTextAsync(newServerChatroomListJson).Wait();
+            return Task.FromResult(true);
+        }
+
+        public Task<bool> UpdateLocalUser(User user)
+        {
+            string newUserJson = JsonConvert.SerializeObject(user);
+            localUserFile.WriteAllTextAsync(newUserJson).Wait();
+            if (user != null)
+            {
+                UpdateServerUsers(user);
+            }
+            return Task.FromResult(true);
+        }
+
+        public Task<bool> UpdateServerUsers(User user)
+        {
+            serverUsers[user.Username] = user;
+            string newServerUsersJson = JsonConvert.SerializeObject(serverUsers);
+            serverUsersFile.WriteAllTextAsync(newServerUsersJson).Wait();
+            return Task.FromResult(true);
+        }
     }
 }

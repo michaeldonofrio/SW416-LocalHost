@@ -9,13 +9,13 @@ namespace LocalHost
     public partial class App : Application
     {
         public static AsyncDataStore dataStore = AsyncDataStore.CreateAsync().Result;
-        public bool NoUserData = (dataStore.GetUser().Result == null);
+        public bool NoUserData = (dataStore.GetLocalUser().Result == null);
 
         public App()
         {
             if (NoUserData){
                 MainPage = new MainPage();
-                MainPage.Navigation.PushModalAsync(new SignUpPage());
+                MainPage.Navigation.PushModalAsync(new NavigationPage(new WelcomePage()));
             }else{
                 MainPage = new MainPage();
             }

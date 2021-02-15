@@ -7,10 +7,22 @@ namespace LocalHost
 {
     public interface IDataStore
     {
-        Task<User> GetUser();
-        Task<bool> UpdateUser(User user);
-        Task<ChatroomList> GetChatrooms();
-        Task<bool> UpdateChatrooms(ChatroomList chatrooms);
+        Task<User> GetLocalUser();
+        Task<bool> SetNewLocalUser(User user);
+        Task<bool> UpdateLocalUser(User user);
+        Task<ChatroomList> GetLocalChatrooms();
+        Task<bool> UpdateLocalChatrooms(ChatroomList chatrooms);
+
+ 
+        Task<Dictionary<string, Chatroom>>  GetServerChatrooms();
+        Task<bool> PullServerChatroomsToLocal();
+        Task<bool> PushLocalChatroomsToServer(ChatroomList chatrooms);
+
+        Task<Dictionary<string, User>> GetServerUsers();
+        Task<bool> UpdateServerUsers(User user);
+
+
+
         void Subscribe(IObserverViewModel observer);
         void NotifyObservers();
     }

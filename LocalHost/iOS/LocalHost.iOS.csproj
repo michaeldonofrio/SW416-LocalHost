@@ -114,6 +114,12 @@
     <Reference Include="Plugin.Geolocator">
       <HintPath>..\packages\Xam.Plugin.Geolocator.4.2.0\lib\Xamarin.iOS10\Plugin.Geolocator.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Forms.Maps">
+      <HintPath>..\packages\Xamarin.Forms.Maps.2.5.1.444934\lib\Xamarin.iOS10\Xamarin.Forms.Maps.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Maps.iOS">
+      <HintPath>..\packages\Xamarin.Forms.Maps.2.5.1.444934\lib\Xamarin.iOS10\Xamarin.Forms.Maps.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LocalHost\LocalHost.csproj">

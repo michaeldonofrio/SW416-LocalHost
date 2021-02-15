@@ -21,14 +21,14 @@ namespace LocalHost.ViewModels
             getData();
         }
 
-        public void updateUser(string updatedUsername, string updatedName){
-            User.Username = updatedUsername;
-            DataStore.UpdateUser(User);
+        public void SignOut(){
+            User = null;
+            DataStore.UpdateLocalUser(null);
         }
 
         public void getData()
         {
-            User user = DataStore.GetUser().Result;
+            User user = DataStore.GetLocalUser().Result;
             this.User = user;
         }
     }
